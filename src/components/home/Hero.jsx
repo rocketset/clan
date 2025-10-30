@@ -7,7 +7,7 @@ const Hero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/assets/home/bgHero.png')`
+          backgroundImage: `url('/assets/home/bgHero.jpg')`,
         }}
       >
         {/* Overlay para melhor contraste do texto */}
