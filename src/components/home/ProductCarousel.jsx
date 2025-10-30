@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -9,6 +9,8 @@ import 'swiper/css/navigation';
 
 // Two-column section: left text, right carousel
 const ProductCarousel = () => {
+  const [swiperInstance, setSwiperInstance] = useState(null);
+
   // Data: use assets under public/assets/produtos
   const products = [
     // Requeijões
@@ -70,9 +72,6 @@ const ProductCarousel = () => {
     },
   ];
 
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
-
   return (
     <section className="section-padding bg-white mt-[-4rem]">
       <div className="w-full lg:w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,6 +92,7 @@ const ProductCarousel = () => {
           <div className="relative" data-aos="fade-up" data-aos-delay="150">
             <Swiper
               modules={[Navigation]}
+              onSwiper={setSwiperInstance}
               centeredSlides={true}
               slidesPerView={1}
               slidesPerGroup={1}
@@ -102,18 +102,18 @@ const ProductCarousel = () => {
                 640: { slidesPerView: 1, centeredSlides: true },
                 1024: { slidesPerView: 3, centeredSlides: true },
               }}
-              navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-              onBeforeInit={(swiper) => {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
-              }}
               className="product-swiper"
             >
               {products.map((p) => (
                 <SwiperSlide key={p.id}>
                   <div className="flex flex-col items-center text-center px-6 py-4 transition-all duration-300">
                     <div className="w-48 h-64 sm:w-56 sm:h-72 flex items-center justify-center mb-5">
-                      <img src={p.image} alt={p.name} className="w-full h-full object-contain drop-shadow-xl" />
+                      <img 
+                        src={p.image} 
+                        alt={p.name} 
+                        className="w-full h-full object-contain drop-shadow-xl"
+                        loading="lazy"
+                      />
                     </div>
                     <div className="text-[#1063a8] font-semibold">{p.name}</div>
                     <div className="text-[#1063a8] text-sm mt-1">{p.weight}</div>
@@ -124,16 +124,16 @@ const ProductCarousel = () => {
 
             {/* Navigation arrows */}
             <button
-              ref={prevRef}
+              onClick={() => swiperInstance?.slidePrev()}
               aria-label="Anterior"
-              className="absolute left-2 lg:left-0 top-1/2 -translate-y-1/2 lg:-translate-x-1/2 z-10 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#1063a8] text-white flex items-center justify-center shadow-lg hover:bg-[#0d5796] focus:outline-none"
+              className="absolute left-2 lg:left-0 top-1/2 -translate-y-1/2 lg:-translate-x-1/2 z-10 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#1063a8] text-white flex items-center justify-center shadow-lg hover:bg-[#0d5796] focus:outline-none transition-colors"
             >
               <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
             </button>
             <button
-              ref={nextRef}
+              onClick={() => swiperInstance?.slideNext()}
               aria-label="Próximo"
-              className="absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 lg:translate-x-1/2 z-10 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#1063a8] text-white flex items-center justify-center shadow-lg hover:bg-[#0d5796] focus:outline-none"
+              className="absolute right-2 lg:right-0 top-1/2 -translate-y-1/2 lg:translate-x-1/2 z-10 w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#1063a8] text-white flex items-center justify-center shadow-lg hover:bg-[#0d5796] focus:outline-none transition-colors"
             >
               <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
             </button>
