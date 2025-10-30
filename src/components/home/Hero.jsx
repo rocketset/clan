@@ -3,15 +3,13 @@ import React from 'react';
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-start justify-center overflow-hidden pt-32 lg:pt-40">
-      {/* Background com imagem - lazy load */}
+      {/* Background com imagem */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[#386ba8]"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('/assets/home/bgHero.png')`
         }}
       >
-        {/* Preload da imagem de fundo */}
-        <link rel="preload" as="image" href="/assets/home/bgHero.png" />
         {/* Overlay para melhor contraste do texto */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20"></div>
       </div>
