@@ -37,13 +37,7 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000,
     assetsInlineLimit: 4096,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    }
+    minify: 'esbuild'
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'swiper', 'aos']
